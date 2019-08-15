@@ -1,6 +1,9 @@
 // functions1.rs
 // Make me compile! Scroll down for hints :)
 
+fn call_me() {
+    println!("hello rust");
+}
 fn main() {
     call_me();
 }
