@@ -4,16 +4,18 @@
 // somewhere. Try not to create any copies of the `numbers` Vec!
 // Scroll down for hints :)
 
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use std::thread;
 
 fn main() {
     let numbers: Vec<_> = (0..100u32).collect();
-    let shared_numbers = // TODO
+    let shared_numbers = Arc::new(Mutex::new(numbers));
     let mut joinhandles = Vec::new();
 
     for offset in 0..8 {
+        let clone = shared_numbers.clone();
         joinhandles.push(thread::spawn(move || {
+            let child_numbers = clone.lock().unwrap();
             let mut i = offset;
             let mut sum = 0;
             while i < child_numbers.len() {
